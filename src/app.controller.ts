@@ -9,4 +9,9 @@ export class AppController {
   getHello(): string {
     return this.appService.getHello();
   }
+
+  @Get('health')
+  getHealth(): { status: string; ok: boolean; service: string } {
+    return { status: 'ok', ok: true, service: 'hackathon-api' };
+  }
 }
