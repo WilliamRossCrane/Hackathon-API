@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { APP_GUARD } from '@nestjs/core';
 import { ConfigModule } from '@nestjs/config';
-import { ArcjetGuard, ArcjetModule, shield, tokenBucket } from '@arcjet/nest';
+import { ArcjetGuard, ArcjetModule, fixedWindow, shield } from '@arcjet/nest';
 import { ApiController } from './api.controller';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -14,11 +14,10 @@ import { AppService } from './app.service';
       key: process.env.ARCJET_KEY!,
       rules: [
         shield({ mode: 'LIVE' }),
-        tokenBucket({
+        fixedWindow({
           mode: 'LIVE',
-          refillRate: 10,
-          interval: 60,
-          capacity: 30,
+          window: '60s',
+          max: 30,
         }),
       ],
     }),
