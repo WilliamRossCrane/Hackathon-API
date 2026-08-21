@@ -1,8 +1,6 @@
-import { Controller, Get, UseGuards } from '@nestjs/common';
-import { ArcjetGuard } from './common/guards/arcjet.guard';
+import { Controller, Get } from '@nestjs/common';
 
 @Controller('api')
-@UseGuards(ArcjetGuard)
 export class ApiController {
   @Get('status')
   getStatus(): { status: string; ok: boolean; route: string } {
