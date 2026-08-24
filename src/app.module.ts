@@ -5,10 +5,12 @@ import { ArcjetGuard, ArcjetModule, fixedWindow, shield } from '@arcjet/nest';
 import { ApiController } from './api.controller';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { PrismaModule } from './lib/database/prisma.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
+    PrismaModule,
     ArcjetModule.forRoot({
       isGlobal: true,
       key: process.env.ARCJET_KEY!,
