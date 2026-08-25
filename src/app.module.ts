@@ -2,15 +2,25 @@ import { Module } from '@nestjs/common';
 import { APP_GUARD } from '@nestjs/core';
 import { ConfigModule } from '@nestjs/config';
 import { ArcjetGuard, ArcjetModule, fixedWindow, shield } from '@arcjet/nest';
+import { AuthModule } from '@thallesp/nestjs-better-auth';
 import { ApiController } from './api.controller';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { createAuth } from './auth';
 import { PrismaModule } from './lib/database/prisma.module';
+import { PrismaService } from './lib/database/prisma.service';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     PrismaModule,
+    AuthModule.forRootAsync({
+      imports: [PrismaModule],
+      inject: [PrismaService],
+      useFactory: (prisma: PrismaService) => ({
+        auth: createAuth(prisma),
+      }),
+    }),
     ArcjetModule.forRoot({
       isGlobal: true,
       key: process.env.ARCJET_KEY!,
