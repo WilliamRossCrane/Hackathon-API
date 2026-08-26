@@ -9,11 +9,13 @@ import { AppService } from './app.service';
 import { createAuth } from './auth';
 import { PrismaModule } from './lib/database/prisma.module';
 import { PrismaService } from './lib/database/prisma.service';
+import { UserModule } from './module/user/user.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     PrismaModule,
+    UserModule,
     AuthModule.forRootAsync({
       imports: [PrismaModule],
       inject: [PrismaService],
