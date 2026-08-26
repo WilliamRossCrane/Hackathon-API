@@ -1,6 +1,7 @@
 import { Controller, Get } from '@nestjs/common';
 import { AllowAnonymous } from '@thallesp/nestjs-better-auth';
 import { AppService } from './app.service';
+import { ResponseMessage } from './common/decorators/response-message.decorator';
 
 @Controller()
 export class AppController {
@@ -14,6 +15,7 @@ export class AppController {
 
   @Get('health')
   @AllowAnonymous()
+  @ResponseMessage('Service is healthy')
   getHealth(): { status: string; ok: boolean; service: string } {
     return { status: 'ok', ok: true, service: 'hackathon-api' };
   }

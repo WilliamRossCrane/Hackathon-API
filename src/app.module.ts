@@ -3,6 +3,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { ConfigModule } from '@nestjs/config';
 import { ArcjetGuard, ArcjetModule, fixedWindow, shield } from '@arcjet/nest';
 import { AuthModule } from '@thallesp/nestjs-better-auth';
+import { TransformInterceptor } from './common/interceptors/transform.interceptor';
 import { ApiController } from './api.controller';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -39,6 +40,7 @@ import { UserModule } from './module/user/user.module';
   controllers: [AppController, ApiController],
   providers: [
     AppService,
+    TransformInterceptor,
     {
       provide: APP_GUARD,
       useClass: ArcjetGuard,
