@@ -4,16 +4,13 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { PrismaService } from '../../lib/database/prisma.service';
+import type {
+  CreateHackathonDto,
+  UpdateHackathonDto,
+} from './dto/create-hackathon.dto';
 
-export interface CreateHackathonInput {
-  name: string;
-  description?: string;
-  startDate: string;
-  endDate: string;
-  isActive?: boolean;
-}
-
-export type UpdateHackathonInput = Partial<CreateHackathonInput>;
+export type CreateHackathonInput = CreateHackathonDto;
+export type UpdateHackathonInput = UpdateHackathonDto;
 
 @Injectable()
 export class HackathonService {

@@ -10,11 +10,11 @@ import {
 import { AllowAnonymous, Roles, Session } from '@thallesp/nestjs-better-auth';
 import type { UserSession } from '@thallesp/nestjs-better-auth';
 import { ResponseMessage } from '../../common/decorators/response-message.decorator';
+import {
+  CreateHackathonDto,
+  UpdateHackathonDto,
+} from './dto/create-hackathon.dto';
 import { HackathonService } from './hackathon.service';
-import type {
-  CreateHackathonInput,
-  UpdateHackathonInput,
-} from './hackathon.service';
 
 @Controller('hackathon')
 export class HackathonController {
@@ -35,14 +35,14 @@ export class HackathonController {
   @Post()
   @Roles(['ADMIN'])
   @ResponseMessage('Hackathon created')
-  create(@Body() input: CreateHackathonInput, @Session() session: UserSession) {
+  create(@Body() input: CreateHackathonDto, @Session() session: UserSession) {
     return this.hackathonService.create(input, session.user.id);
   }
 
   @Patch(':id')
   @Roles(['ADMIN'])
   @ResponseMessage('Hackathon updated')
-  update(@Param('id') id: string, @Body() input: UpdateHackathonInput) {
+  update(@Param('id') id: string, @Body() input: UpdateHackathonDto) {
     return this.hackathonService.update(id, input);
   }
 
